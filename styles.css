@@ -713,12 +713,15 @@ p, .body-text {
     gap: 12px;
 }
 
-/* =========== STAGE (full-bleed product photo hero) ============ */
+/* =========== STAGE (two-layer product hero) ============ */
 .stage {
     position: relative;
     min-height: 100vh;
     min-height: 100dvh;
-    background-color: #1C140D;
+    background:
+        linear-gradient(180deg, rgba(10, 7, 3, 0.55) 0%, transparent 22%, transparent 78%, rgba(10, 7, 3, 0.75) 100%),
+        radial-gradient(ellipse at center, transparent 25%, rgba(10, 7, 3, 0.45) 90%),
+        #1C140D;
     color: var(--light);
     overflow: hidden;
     display: grid;
@@ -726,45 +729,28 @@ p, .body-text {
     isolation: isolate;
 }
 
-/* warm radial glow emanating from lamp center */
+/* LAYER 1: atmospheric scene — blurred, dimmed, behind stage's own background */
 .stage::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: min(1600px, 160vw);
-    height: min(1100px, 130vh);
-    transform: translate(-50%, -50%);
-    background: radial-gradient(
-        ellipse at center,
-        rgba(255, 225, 170, 0.22) 0%,
-        rgba(245, 197, 99, 0.12) 18%,
-        rgba(232, 168, 56, 0.05) 38%,
-        transparent 65%
-    );
-    filter: blur(30px);
+    inset: -24px;
+    background: url(lamp-scene.jpg) center / cover no-repeat;
+    filter: brightness(0.45) blur(4px) saturate(1.08);
     z-index: -1;
-    pointer-events: none;
-    animation: stage-breathe 8s ease-in-out infinite;
 }
 
-/* subtle vignette — darkens corners for focus */
+/* LAYER 2: crisp product cutout centered — above overlay gradients, below text */
 .stage::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-        ellipse at center,
-        transparent 40%,
-        rgba(10, 7, 3, 0.55) 100%
-    );
-    z-index: -1;
+    background: url(lamp-cutout.png) no-repeat center center / auto min(62vh, 640px);
+    filter:
+        drop-shadow(0 0 60px rgba(245, 197, 99, 0.35))
+        drop-shadow(0 0 140px rgba(232, 168, 56, 0.18))
+        drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
     pointer-events: none;
-}
-
-@keyframes stage-breathe {
-    0%, 100% { opacity: 0.85; }
-    50% { opacity: 1; }
+    animation: lamp-pulse 6s ease-in-out infinite;
 }
 
 /* stage nav — dark variant */
@@ -832,44 +818,14 @@ p, .body-text {
     padding: 16px 0;
 }
 
-/* composition wrapper — holds product cutout + text overlay */
-.stage-composition {
-    position: relative;
-    width: 100%;
-    display: grid;
-    place-items: center;
-    isolation: isolate;
-}
-
-/* product cutout — the anchor element */
-.stage-product {
-    position: relative;
-    z-index: 2;
-    display: block;
-    width: clamp(220px, 32vw, 480px);
-    height: auto;
-    filter:
-        drop-shadow(0 0 60px rgba(245, 197, 99, 0.35))
-        drop-shadow(0 0 140px rgba(232, 168, 56, 0.18))
-        drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
-    animation: lamp-pulse 6s ease-in-out infinite;
-    grid-column: 1;
-    grid-row: 1;
-}
-
 .stage-hero {
-    grid-column: 1;
-    grid-row: 1;
-    align-self: center;
-    justify-self: stretch;
     position: relative;
-    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
+    width: 100%;
     padding: 0 clamp(16px, 4vw, 64px);
+    margin: 0;
     font-family: 'Instrument Serif', Georgia, serif;
     font-weight: 400;
     font-size: clamp(88px, 22vw, 320px);
@@ -877,7 +833,6 @@ p, .body-text {
     letter-spacing: -0.045em;
     color: var(--light);
     white-space: nowrap;
-    pointer-events: none;
 }
 
 .stage-word {
@@ -891,10 +846,20 @@ p, .body-text {
     color: var(--glow-soft);
 }
 
-/* subtle ambient pulse on the overlay to mimic lamp breathing */
+/* pulse the amber drop-shadow glow to mimic lamp breathing */
 @keyframes lamp-pulse {
-    0%, 100% { opacity: 0.85; }
-    50% { opacity: 1; }
+    0%, 100% {
+        filter:
+            drop-shadow(0 0 60px rgba(245, 197, 99, 0.35))
+            drop-shadow(0 0 140px rgba(232, 168, 56, 0.18))
+            drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
+    }
+    50% {
+        filter:
+            drop-shadow(0 0 90px rgba(245, 197, 99, 0.5))
+            drop-shadow(0 0 180px rgba(232, 168, 56, 0.26))
+            drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
+    }
 }
 
 /* caption — centered below hero composition */
