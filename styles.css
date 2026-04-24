@@ -713,15 +713,12 @@ p, .body-text {
     gap: 12px;
 }
 
-/* =========== STAGE (two-layer product hero) ============ */
+/* =========== STAGE (product hero) ============ */
 .stage {
     position: relative;
-    min-height: 100vh;
     min-height: 100dvh;
-    background:
-        linear-gradient(180deg, rgba(10, 7, 3, 0.55) 0%, transparent 22%, transparent 78%, rgba(10, 7, 3, 0.75) 100%),
-        radial-gradient(ellipse at center, transparent 25%, rgba(10, 7, 3, 0.45) 90%),
-        #1C140D;
+    min-height: 100vh;
+    background: #1C140D;
     color: var(--light);
     overflow: hidden;
     display: grid;
@@ -729,28 +726,24 @@ p, .body-text {
     isolation: isolate;
 }
 
-/* LAYER 1: atmospheric scene — blurred, dimmed, behind stage's own background */
+/* LAYER 1: product scene — softly graded for text contrast */
 .stage::before {
     content: '';
     position: absolute;
-    inset: -24px;
-    background: url(lamp-scene.jpg) center / cover no-repeat;
-    filter: brightness(0.45) blur(4px) saturate(1.08);
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(10, 7, 3, 0.5) 0%, transparent 18%, transparent 70%, rgba(10, 7, 3, 0.68) 100%),
+        radial-gradient(ellipse at center, transparent 22%, rgba(10, 7, 3, 0.38) 94%),
+        url(lamp-hero.png) center center / cover no-repeat;
+    filter: brightness(0.86) contrast(1.03) saturate(1.05);
     z-index: -1;
 }
 
-/* LAYER 2: crisp product cutout centered — above overlay gradients, below text */
 .stage::after {
-    content: '';
+    content: none;
     position: absolute;
     inset: 0;
-    background: url(lamp-cutout.png) no-repeat center center / auto min(62vh, 640px);
-    filter:
-        drop-shadow(0 0 60px rgba(245, 197, 99, 0.35))
-        drop-shadow(0 0 140px rgba(232, 168, 56, 0.18))
-        drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
     pointer-events: none;
-    animation: lamp-pulse 6s ease-in-out infinite;
 }
 
 /* stage nav — dark variant */
@@ -809,41 +802,21 @@ p, .body-text {
 
 /* main composition */
 .stage-inner {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 0;
+    display: block;
+    position: static;
+    padding: 0;
 }
 
 .stage-hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0 clamp(16px, 4vw, 64px);
-    margin: 0;
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(88px, 22vw, 320px);
-    line-height: 0.9;
-    letter-spacing: -0.045em;
-    color: var(--light);
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
     white-space: nowrap;
-}
-
-.stage-word {
-    position: relative;
-    z-index: 2;
-    text-shadow: 0 0 40px rgba(10, 7, 3, 0.6), 0 0 80px rgba(10, 7, 3, 0.35);
-}
-
-.stage-word em {
-    font-style: italic;
-    color: var(--glow-soft);
+    border: 0;
 }
 
 /* pulse the amber drop-shadow glow to mimic lamp breathing */
@@ -851,22 +824,25 @@ p, .body-text {
     0%, 100% {
         filter:
             drop-shadow(0 0 60px rgba(245, 197, 99, 0.35))
-            drop-shadow(0 0 140px rgba(232, 168, 56, 0.18))
+            drop-shadow(0 0 120px rgba(232, 168, 56, 0.16))
             drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
     }
     50% {
         filter:
-            drop-shadow(0 0 90px rgba(245, 197, 99, 0.5))
-            drop-shadow(0 0 180px rgba(232, 168, 56, 0.26))
+            drop-shadow(0 0 82px rgba(245, 197, 99, 0.45))
+            drop-shadow(0 0 150px rgba(232, 168, 56, 0.22))
             drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
     }
 }
 
 /* caption — centered below hero composition */
 .stage-side {
-    margin-top: clamp(32px, 5vw, 56px);
-    text-align: center;
-    max-width: 520px;
+    position: absolute;
+    top: clamp(168px, 31vh, 286px);
+    right: clamp(40px, 8vw, 128px);
+    width: min(360px, 28vw);
+    margin: 0;
+    text-align: left;
     z-index: 4;
 }
 
@@ -876,8 +852,8 @@ p, .body-text {
     font-weight: 600;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: rgba(250, 250, 249, 0.5);
-    margin-bottom: 14px;
+    color: rgba(250, 250, 249, 0.62);
+    margin-bottom: 16px;
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -894,10 +870,10 @@ p, .body-text {
 
 .stage-side-head {
     font-family: 'Instrument Serif', Georgia, serif;
-    font-size: clamp(22px, 2.8vw, 34px);
-    line-height: 1.3;
-    letter-spacing: -0.5px;
-    color: rgba(250, 250, 249, 0.88);
+    font-size: clamp(32px, 3.4vw, 48px);
+    line-height: 1.08;
+    letter-spacing: -0.8px;
+    color: rgba(250, 250, 249, 0.92);
 }
 
 .stage-side-head em {
@@ -940,6 +916,161 @@ p, .body-text {
     transform: translateY(-2px);
 }
 
+/* =========== CONCEPT OPTIONS ============ */
+.concept {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: #0D0B09;
+    color: var(--light);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.concept::before,
+.concept::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.concept::before {
+    background: url(lamp-hero.png) center center / cover no-repeat;
+    filter: brightness(0.86) contrast(1.04) saturate(1.05);
+    z-index: -2;
+}
+
+.concept::after {
+    z-index: -1;
+}
+
+.concept-label {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    z-index: 3;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(245, 197, 99, 0.62);
+    padding: 8px 16px;
+    border: 1px solid rgba(245, 197, 99, 0.2);
+    border-radius: 100px;
+    background: rgba(13, 11, 9, 0.42);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.concept-copy {
+    position: relative;
+    z-index: 2;
+    width: min(390px, 34vw);
+    margin-left: clamp(40px, 8vw, 120px);
+    padding-top: clamp(180px, 30vh, 280px);
+}
+
+.concept-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(250, 250, 249, 0.62);
+}
+
+.concept-eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--glow-soft);
+    box-shadow: 0 0 10px rgba(245, 197, 99, 0.8);
+}
+
+.concept-title {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(42px, 5.4vw, 74px);
+    font-weight: 400;
+    line-height: 0.96;
+    letter-spacing: -1px;
+    color: rgba(250, 250, 249, 0.94);
+}
+
+.concept-title em {
+    font-style: italic;
+    color: var(--glow-soft);
+}
+
+.concept-copy p {
+    margin-top: 22px;
+    max-width: 340px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(250, 250, 249, 0.64);
+}
+
+.concept-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 34px;
+    padding: 13px 24px;
+    border: 1px solid rgba(250, 250, 249, 0.16);
+    border-radius: 100px;
+    background: rgba(250, 250, 249, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: var(--light);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.concept--left::after {
+    background:
+        linear-gradient(90deg, rgba(10, 7, 3, 0.86) 0%, rgba(10, 7, 3, 0.48) 30%, rgba(10, 7, 3, 0.06) 58%, rgba(10, 7, 3, 0.52) 100%),
+        linear-gradient(180deg, rgba(10, 7, 3, 0.55) 0%, transparent 32%, rgba(10, 7, 3, 0.72) 100%);
+}
+
+.concept--rail::before {
+    filter: brightness(0.9) contrast(1.04) saturate(1.05);
+}
+
+.concept--rail::after {
+    background:
+        linear-gradient(180deg, rgba(10, 7, 3, 0.64) 0%, transparent 30%, rgba(10, 7, 3, 0.2) 56%, rgba(10, 7, 3, 0.88) 100%),
+        radial-gradient(ellipse at center, transparent 22%, rgba(10, 7, 3, 0.34) 94%);
+}
+
+.concept-rail {
+    position: absolute;
+    left: clamp(28px, 6vw, 96px);
+    right: clamp(28px, 6vw, 96px);
+    bottom: clamp(36px, 7vw, 82px);
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 36px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(250, 250, 249, 0.14);
+}
+
+.concept-rail .concept-title {
+    max-width: 720px;
+    font-size: clamp(38px, 4.6vw, 64px);
+}
+
+.concept-rail .concept-cta {
+    flex: 0 0 auto;
+    margin-top: 0;
+    margin-bottom: 6px;
+}
+
 .stage-sections {
     width: 100%;
     max-width: 960px;
@@ -960,6 +1091,86 @@ p, .body-text {
     align-items: center;
     gap: 8px;
 }
+
+/* =========== FONT COMPARISON VARIANTS ============ */
+.font-badge {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    z-index: 5;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(245, 197, 99, 0.72);
+    padding: 8px 16px;
+    border: 1px solid rgba(245, 197, 99, 0.22);
+    border-radius: 100px;
+    background: rgba(13, 11, 9, 0.48);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.v-helvetica .stage-side-head,
+.v-helvetica .concept-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: -0.03em;
+}
+.v-helvetica .stage-side-head em,
+.v-helvetica .concept-title em { font-style: italic; font-weight: 700; }
+
+.v-nhg .stage-side-head,
+.v-nhg .concept-title {
+    font-family: 'Neue Haas Grotesk Display Pro', 'Helvetica Neue', Helvetica, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: -0.035em;
+}
+.v-nhg .stage-side-head em,
+.v-nhg .concept-title em { font-style: italic; font-weight: 700; }
+
+.v-sf .stage-side-head,
+.v-sf .concept-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    letter-spacing: -0.04em;
+}
+.v-sf .stage-side-head em,
+.v-sf .concept-title em { font-style: italic; font-weight: 800; }
+
+.v-inter .stage-side-head,
+.v-inter .concept-title {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    letter-spacing: -0.045em;
+}
+.v-inter .stage-side-head em,
+.v-inter .concept-title em { font-style: italic; font-weight: 800; }
+
+.v-baskerville .stage-side-head,
+.v-baskerville .concept-title {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+}
+.v-baskerville .stage-side-head em,
+.v-baskerville .concept-title em { font-style: italic; font-weight: 700; }
+
+.v-cormorant .stage-side-head,
+.v-cormorant .concept-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+.v-cormorant .stage-side-head em,
+.v-cormorant .concept-title em { font-style: italic; font-weight: 700; }
 
 .stage-sections a:hover { color: var(--glow-soft); }
 .stage-sections a .arrow { opacity: 0.5; transition: transform 0.2s ease; }
@@ -1050,14 +1261,64 @@ p, .body-text {
 }
 
 /* =========== STAGE RESPONSIVE ============ */
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
     .stage-side {
-        position: static;
+        position: absolute;
+        left: 50%;
+        right: auto;
+        top: auto;
+        bottom: clamp(92px, 13vh, 132px);
+        transform: translateX(-50%);
+        width: min(86vw, 420px);
         max-width: 420px;
-        margin: 24px auto 0;
+        margin: 0;
         text-align: center;
     }
     .stage-side-eyebrow { justify-content: center; }
+    .stage-side-head {
+        font-size: clamp(26px, 6vw, 36px);
+        line-height: 1.16;
+    }
+}
+
+@media (max-width: 900px) {
+    .concept-label {
+        top: 22px;
+        right: 50%;
+        transform: translateX(50%);
+    }
+    .concept-copy {
+        width: min(86vw, 420px);
+        margin: 0 auto;
+        padding-top: clamp(460px, 64vh, 620px);
+        text-align: center;
+    }
+    .concept-copy p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .concept-eyebrow {
+        justify-content: center;
+    }
+    .concept--left::after {
+        background:
+            linear-gradient(180deg, rgba(10, 7, 3, 0.42) 0%, transparent 34%, rgba(10, 7, 3, 0.82) 76%, rgba(10, 7, 3, 0.94) 100%),
+            radial-gradient(ellipse at center, transparent 22%, rgba(10, 7, 3, 0.38) 94%);
+    }
+    .concept-rail {
+        left: 24px;
+        right: 24px;
+        bottom: 34px;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        text-align: center;
+    }
+    .concept-rail .concept-title {
+        max-width: 460px;
+        font-size: clamp(32px, 8vw, 44px);
+        line-height: 1.02;
+    }
 }
 
 @media (max-width: 640px) {
@@ -1074,10 +1335,6 @@ p, .body-text {
         background: rgba(28, 20, 13, 0.95);
         border-bottom: 1px solid rgba(250, 250, 249, 0.08);
     }
-    .stage-hero {
-        font-size: clamp(64px, 22vw, 96px);
-        gap: 4px;
-    }
     .stage-lamp { width: clamp(140px, 38vw, 200px); }
     .stage-footer { padding: 0 20px 28px; gap: 20px; }
     .stage-sections {
@@ -1086,6 +1343,19 @@ p, .body-text {
         justify-content: center;
     }
     .stage-sections a { font-size: 12px; }
+    .concept-copy {
+        padding-top: clamp(430px, 61vh, 560px);
+    }
+    .concept-title {
+        font-size: clamp(36px, 11vw, 48px);
+    }
+    .concept-copy p {
+        font-size: 14px;
+    }
+    .concept-label {
+        font-size: 9px;
+        letter-spacing: 2.4px;
+    }
 }
 
 /* =========== RESPONSIVE ============ */
