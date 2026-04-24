@@ -17,31 +17,92 @@
 </head>
 <body>
 
-<nav class="nav">
-    <div class="nav-inner">
-        <a href="/" class="logo"><span class="logo-dot"></span>Neevel</a>
-        <ul class="nav-links" id="nav-links">
+<section class="stage">
+    <nav class="stage-nav">
+        <a href="/" class="stage-logo"><span class="stage-logo-dot"></span>Neevel</a>
+        <ul class="stage-links" id="stage-links">
             <li><a href="/design/">Design</a></li>
             <li><a href="/research/">Research</a></li>
             <li><a href="/press/">Press</a></li>
             <li><a href="/contact/">Contact</a></li>
         </ul>
-        <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('nav-links').classList.toggle('open')">
+        <button class="stage-nav-toggle" aria-label="Menu" onclick="document.getElementById('stage-links').classList.toggle('open')">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
-    </div>
-</nav>
+    </nav>
 
-<section class="hero">
-    <div class="hero-inner">
-        <div class="hero-eyebrow">Stanford Center on Longevity · 2026 Finalist</div>
-        <h1 class="hero-title">The nightlight<br>that <em>fights back</em>.</h1>
-        <p class="hero-sub">Neevel is an end-to-end fall prevention system — sensor-equipped insoles paired with a nightlight-shaped hub that coaches older adults through daily balance exercises. No smartphone required.</p>
-        <div class="hero-meta">
-            <span class="hero-meta-item">2nd place</span>
-            <span class="hero-meta-item">249 submissions</span>
-            <span class="hero-meta-item">33 countries</span>
-            <span class="hero-meta-item">8 finalists</span>
+    <div class="stage-inner">
+        <h1 class="stage-hero">
+            <span class="stage-word">Nee</span>
+            <span class="stage-lamp" aria-hidden="true">
+                <svg viewBox="0 0 320 440" xmlns="http://www.w3.org/2000/svg" role="img">
+                    <defs>
+                        <radialGradient id="shadeGrad" cx="0.5" cy="0.4" r="0.7">
+                            <stop offset="0%" stop-color="#FFE9B8"/>
+                            <stop offset="45%" stop-color="#F5C563"/>
+                            <stop offset="100%" stop-color="#C88825"/>
+                        </radialGradient>
+                        <linearGradient id="baseGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#4A2E1A"/>
+                            <stop offset="55%" stop-color="#2E1B0D"/>
+                            <stop offset="100%" stop-color="#1A0E05"/>
+                        </linearGradient>
+                        <linearGradient id="plinthGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#2A1810"/>
+                            <stop offset="100%" stop-color="#120A04"/>
+                        </linearGradient>
+                        <radialGradient id="openingGrad" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0%" stop-color="#150A02"/>
+                            <stop offset="100%" stop-color="#3A2211"/>
+                        </radialGradient>
+                        <linearGradient id="shadeHighlight" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="rgba(255,255,255,0.35)"/>
+                            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- plinth (surface) -->
+                    <rect x="20" y="380" width="280" height="42" rx="2" fill="url(#plinthGrad)"/>
+                    <rect x="20" y="380" width="280" height="2" fill="rgba(90,55,25,0.35)"/>
+
+                    <!-- base (wooden cylinder body) -->
+                    <rect x="108" y="238" width="104" height="146" rx="4" fill="url(#baseGrad)"/>
+                    <!-- subtle wood grain -->
+                    <line x1="120" y1="250" x2="120" y2="378" stroke="rgba(80,50,25,0.25)" stroke-width="1"/>
+                    <line x1="150" y1="252" x2="150" y2="378" stroke="rgba(80,50,25,0.18)" stroke-width="1"/>
+                    <line x1="180" y1="248" x2="180" y2="378" stroke="rgba(80,50,25,0.22)" stroke-width="1"/>
+                    <line x1="196" y1="252" x2="196" y2="378" stroke="rgba(80,50,25,0.15)" stroke-width="1"/>
+                    <!-- top edge highlight on base -->
+                    <rect x="108" y="238" width="104" height="2" fill="rgba(80,50,25,0.4)"/>
+
+                    <!-- shade (glowing amber cylinder) -->
+                    <rect x="54" y="90" width="212" height="160" rx="10" fill="url(#shadeGrad)"/>
+                    <!-- inner dark opening at top -->
+                    <ellipse cx="160" cy="104" rx="86" ry="18" fill="url(#openingGrad)"/>
+                    <!-- shade rim darker edge -->
+                    <rect x="54" y="90" width="212" height="160" rx="10" fill="none" stroke="rgba(190,120,40,0.4)" stroke-width="1"/>
+                    <!-- shade highlight (soft sheen) -->
+                    <rect x="70" y="110" width="30" height="130" rx="6" fill="url(#shadeHighlight)" opacity="0.5"/>
+                    <!-- warm edge under shade where it meets base -->
+                    <rect x="90" y="246" width="140" height="4" fill="rgba(245,197,99,0.5)"/>
+                </svg>
+            </span>
+            <span class="stage-word"><em>vel</em></span>
+        </h1>
+
+        <aside class="stage-side">
+            <div class="stage-side-eyebrow">Stanford 2026 · 2nd place</div>
+            <div class="stage-side-head">A fall-prevention system<br>that <em>fights back</em>.</div>
+        </aside>
+    </div>
+
+    <div class="stage-footer">
+        <a href="/design/" class="stage-cta">Read the design case study <span>→</span></a>
+        <div class="stage-sections">
+            <a href="/design/">Design <span class="arrow">→</span></a>
+            <a href="/research/">Research <span class="arrow">→</span></a>
+            <a href="/press/">Press <span class="arrow">→</span></a>
+            <a href="/contact/">Contact <span class="arrow">→</span></a>
         </div>
     </div>
 </section>
