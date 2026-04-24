@@ -713,12 +713,12 @@ p, .body-text {
     gap: 12px;
 }
 
-/* =========== STAGE (dark atmospheric hero) ============ */
+/* =========== STAGE (full-bleed product photo hero) ============ */
 .stage {
     position: relative;
     min-height: 100vh;
     min-height: 100dvh;
-    background: #1C140D;
+    background-color: #1C140D;
     color: var(--light);
     overflow: hidden;
     display: grid;
@@ -726,28 +726,24 @@ p, .body-text {
     isolation: isolate;
 }
 
+/* product photo as full-bleed background */
 .stage::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: min(1400px, 140vw);
-    height: min(900px, 110vh);
-    transform: translate(-50%, -50%);
-    background: radial-gradient(ellipse at center, rgba(245, 197, 99, 0.28) 0%, rgba(232, 168, 56, 0.1) 35%, transparent 65%);
-    filter: blur(40px);
-    z-index: 0;
-    pointer-events: none;
+    inset: 0;
+    background: url(lamp.jpg) center / cover no-repeat;
+    z-index: -2;
 }
 
+/* overlay for text readability: darker at top/bottom, transparent mid-band over lamp */
 .stage::after {
     content: '';
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse at center, transparent 35%, rgba(10, 7, 3, 0.55) 100%),
-        repeating-linear-gradient(180deg, transparent 0, transparent 2px, rgba(255, 220, 150, 0.015) 2px, rgba(255, 220, 150, 0.015) 3px);
-    z-index: 0;
+        linear-gradient(180deg, rgba(10, 7, 3, 0.8) 0%, rgba(10, 7, 3, 0.2) 18%, transparent 35%, transparent 65%, rgba(10, 7, 3, 0.3) 82%, rgba(10, 7, 3, 0.85) 100%),
+        radial-gradient(ellipse at center, transparent 35%, rgba(10, 7, 3, 0.35) 100%);
+    z-index: -1;
     pointer-events: none;
 }
 
@@ -809,21 +805,24 @@ p, .body-text {
 .stage-inner {
     position: relative;
     z-index: 2;
-    display: grid;
-    place-items: center;
-    padding: 16px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 0;
 }
 
 .stage-hero {
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: clamp(8px, 1.5vw, 20px);
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 clamp(16px, 4vw, 64px);
     margin: 0;
     font-family: 'Instrument Serif', Georgia, serif;
     font-weight: 400;
-    font-size: clamp(88px, 20vw, 280px);
+    font-size: clamp(88px, 22vw, 320px);
     line-height: 0.9;
     letter-spacing: -0.045em;
     color: var(--light);
@@ -833,7 +832,7 @@ p, .body-text {
 .stage-word {
     position: relative;
     z-index: 2;
-    text-shadow: 0 0 60px rgba(245, 197, 99, 0.12);
+    text-shadow: 0 0 40px rgba(10, 7, 3, 0.6), 0 0 80px rgba(10, 7, 3, 0.35);
 }
 
 .stage-word em {
@@ -841,41 +840,10 @@ p, .body-text {
     color: var(--glow-soft);
 }
 
-/* lamp — product photo dissolved into stage with radial glow */
-.stage-lamp {
-    position: relative;
-    width: clamp(280px, 38vw, 560px);
-    aspect-ratio: 3 / 2;
-    z-index: 1;
-    display: block;
-    isolation: isolate;
-}
-
-/* glow emanating from center of lamp (inside image), extending outward */
-.stage-lamp::before {
-    content: '';
-    position: absolute;
-    inset: -60%;
-    background: radial-gradient(ellipse at center, rgba(255, 220, 150, 0.35) 0%, rgba(245, 197, 99, 0.18) 22%, rgba(232, 168, 56, 0.06) 45%, transparent 70%);
-    z-index: -1;
-    animation: lamp-pulse 6s ease-in-out infinite;
-    pointer-events: none;
-    filter: blur(10px);
-}
-
-.stage-lamp img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    /* dissolve edges into stage via radial mask */
-    mask-image: radial-gradient(ellipse at center, #000 35%, rgba(0,0,0,0.85) 55%, transparent 90%);
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, rgba(0,0,0,0.85) 55%, transparent 90%);
-}
-
+/* subtle ambient pulse on the overlay to mimic lamp breathing */
 @keyframes lamp-pulse {
-    0%, 100% { opacity: 0.85; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.04); }
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 1; }
 }
 
 /* caption — centered below hero composition */
