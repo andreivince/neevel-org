@@ -967,6 +967,90 @@ p, .body-text {
 .stage-sections a .arrow { opacity: 0.5; transition: transform 0.2s ease; }
 .stage-sections a:hover .arrow { transform: translateX(4px); opacity: 1; }
 
+/* =========== VERSION LABEL (type compare) ============ */
+.stage-label {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: rgba(245, 197, 99, 0.55);
+    padding: 8px 18px;
+    border: 1px solid rgba(245, 197, 99, 0.2);
+    border-radius: 100px;
+    background: rgba(28, 20, 13, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* =========== TYPE VERSIONS ============ */
+/* Version 1 — Helvetica Neue */
+.stage--v1 .stage-hero {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+}
+.stage--v1 .stage-hero em { font-style: italic; font-weight: 700; }
+
+/* Version 2 — Neue Haas Grotesk Display */
+.stage--v2 .stage-hero {
+    font-family: 'Neue Haas Grotesk Display Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 0.95;
+}
+.stage--v2 .stage-hero em { font-style: italic; font-weight: 700; }
+
+/* Version 3 — SF Pro Display */
+.stage--v3 .stage-hero {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 0.94;
+}
+.stage--v3 .stage-hero em { font-style: italic; font-weight: 800; }
+
+/* Version 4 — Inter Display */
+.stage--v4 .stage-hero {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.055em;
+    line-height: 0.94;
+}
+.stage--v4 .stage-hero em { font-style: italic; font-weight: 800; }
+
+/* Version 5 — Libre Baskerville Italic */
+.stage--v5 .stage-hero {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 0.98;
+}
+.stage--v5 .stage-hero em {
+    font-style: italic;
+    font-weight: 700;
+}
+
+/* Version 6 — Cormorant Garamond Italic */
+.stage--v6 .stage-hero {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 0.98;
+}
+.stage--v6 .stage-hero em {
+    font-style: italic;
+    font-weight: 700;
+}
+
 /* =========== STAGE RESPONSIVE ============ */
 @media (max-width: 900px) {
     .stage-side {
