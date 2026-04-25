@@ -3,40 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Neevel</title>
+<title>Neevel directions</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='32' fill='%23E8A838'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=Libre+Baskerville:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=14">
 </head>
-<body>
+<body class="compare-page">
+<main class="compare-shell" aria-label="Neevel design directions">
+    <iframe id="compare-frame" class="compare-frame" title="Selected Neevel direction" src="style2/"></iframe>
 
-<section id="light-demo" class="product-scene product-scene--demo" aria-label="Neevel light animation study">
-    <nav class="scene-nav" aria-label="Secondary">
-        <a href="/" class="scene-logo">Neevel</a>
-    </nav>
-</section>
-
-<section id="selected" class="product-scene product-scene--copy" aria-labelledby="hero-title">
-    <nav class="scene-nav" aria-label="Primary">
-        <a href="/" class="scene-logo">Neevel</a>
-    </nav>
-    <div class="scene-copy">
-        <div class="scene-eyebrow">Stanford 2026 · 2nd place</div>
-        <h1 id="hero-title" class="scene-title">Falls are sudden.<br>Neevel isn't.</h1>
-        <p>A responsive fall-prevention system made to feel calm, warm, and already at home.</p>
-        <span class="scene-cta">Site coming soon <span>→</span></span>
+    <div class="compare-hint" aria-live="polite">
+        <strong id="compare-name">Style 2</strong>
+        <span id="compare-count">08 / 09</span>
     </div>
-</section>
+</main>
 
 <script>
 window.addEventListener('DOMContentLoaded', () => {
-    window.setTimeout(() => {
-        document.querySelector('.product-scene--demo')?.classList.add('is-on');
-    }, 240);
+    const options = [
+        { name: 'Version 1', path: 'version1/' },
+        { name: 'Version 2', path: 'version2/' },
+        { name: 'Version 3', path: 'version3/' },
+        { name: 'Version 4', path: 'version4/' },
+        { name: 'Version 5', path: 'version5/' },
+        { name: 'Best', path: 'best/' },
+        { name: 'Style 1', path: 'style1/' },
+        { name: 'Style 2', path: 'style2/' },
+        { name: 'Style 3', path: 'style3/' }
+    ];
+
+    const frame = document.getElementById('compare-frame');
+    const name = document.getElementById('compare-name');
+    const count = document.getElementById('compare-count');
+    const hash = window.location.hash.replace('#', '');
+    let activeIndex = Math.max(0, options.findIndex(option => option.path.replace('/', '') === hash));
+    if (!hash) activeIndex = 7;
+
+    const setActive = index => {
+        activeIndex = (index + options.length) % options.length;
+        const option = options[activeIndex];
+        frame.src = option.path;
+        name.textContent = option.name;
+        count.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(options.length).padStart(2, '0')}`;
+        history.replaceState(null, '', `#${option.path.replace('/', '')}`);
+    };
+
+    window.addEventListener('keydown', event => {
+        if (event.key === 'ArrowRight') setActive(activeIndex + 1);
+        if (event.key === 'ArrowLeft') setActive(activeIndex - 1);
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    window.addEventListener('touchstart', event => {
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', event => {
+        const touch = event.changedTouches[0];
+        const dx = touch.clientX - touchStartX;
+        const dy = touch.clientY - touchStartY;
+        if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+            setActive(activeIndex + (dx < 0 ? 1 : -1));
+        }
+    }, { passive: true });
+
+    setActive(activeIndex);
 });
 </script>
-
 </body>
 </html>
